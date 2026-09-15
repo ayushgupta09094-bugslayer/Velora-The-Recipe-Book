@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A modern interactive recipe book built with HTML, CSS and JavaScript.">
+  <title>Velora | Recipe Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="bg-orb orb-one"></div>
+  <div class="bg-orb orb-two"></div>
+  <div id="particles"></div>
+
+  <header class="hero">
+    <nav class="navbar">
+      <a class="brand" href="#">
+        <span class="brand-mark">✦</span>
+        <span>Velora<span class="brand-dot">.</span></span>
+      </a>
+
+      <div class="nav-actions">
+        <button id="favoritesNav" class="nav-btn">♡ <span>Favorites</span> <b id="favoriteCount">0</b></button>
+        <button id="themeBtn" class="round-btn" title="Toggle theme">☾</button>
+      </div>
+    </nav>
+
+    <section class="hero-content">
+      <div class="hero-copy">
+        <span class="kicker"><span class="pulse"></span> YOUR DIGITAL RECIPE JOURNAL</span>
+        <h1>Good food.<br><em>Beautifully</em> remembered.</h1>
+        <p>Explore recipes, save your favourites, rate every bite and build your own little cookbook.</p>
+
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Search pasta, dessert, breakfast..." autocomplete="off">
+          <button id="clearSearch" title="Clear search">×</button>
+          <button id="searchBtn">Explore</button>
+        </div>
+
+        <div class="quick-tags">
+          <button data-quick="all">All recipes</button>
+          <button data-quick="Breakfast">Breakfast</button>
+          <button data-quick="Main Course">Main course</button>
+          <button data-quick="Dessert">Desserts</button>
+        </div>
+      </div>
+
+      <div class="hero-feature">
+        <div class="feature-image">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=85" alt="Fresh food">
+          <div class="image-shade"></div>
+          <div class="floating-label">TODAY'S PICK</div>
+          <div class="feature-info">
+            <span>Chef's recommendation</span>
+            <h2>Comfort food, elevated.</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <main class="container">
+    <section class="stats">
+      <div><strong id="totalRecipes">0</strong><span>Recipes</span></div>
+      <div><strong id="totalFavorites">0</strong><span>Favorites</span></div>
+      <div><strong id="avgRating">0.0</strong><span>Avg. rating</span></div>
+      <div><strong id="categoriesCount">0</strong><span>Categories</span></div>
+    </section>
+
+    <section class="section-head">
+      <div>
+        <span class="section-kicker">CURATED FOR YOU</span>
+        <h2>Recipe collection</h2>
+        <p id="resultCount">Discover something delicious.</p>
+      </div>
+
+      <div class="controls">
+        <div class="view-toggle">
+          <button id="gridView" class="active">▦</button>
+          <button id="listView">☷</button>
+        </div>
+        <select id="categoryFilter">
+          <option value="all">All categories</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Main Course">Main Course</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Snack">Snack</option>
+        </select>
+        <select id="sortFilter">
+          <option value="featured">Sort: Featured</option>
+          <option value="rating">Highest rated</option>
+          <option value="name">Name A–Z</option>
+          <option value="time">Quickest first</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="recipeGrid" class="recipe-grid"></section>
+
+    <div id="emptyState" class="empty hidden">
+      <div class="empty-icon">✦</div>
+      <h3>Nothing on the menu</h3>
+      <p>Try another search or category. Even the fridge occasionally fails us.</p>
+      <button id="resetFilters" class="outline-btn">Reset filters</button>
+    </div>
+
+    <section class="add-section">
+      <div class="add-heading">
+        <div>
+          <span class="section-kicker">MAKE IT YOURS</span>
+          <h2>Add a recipe</h2>
+          <p>Your family recipe deserves better than being trapped in a screenshot.</p>
+        </div>
+        <div class="add-icon">＋</div>
+      </div>
+
+      <form id="recipeForm">
+        <div class="form-grid">
+          <label>
+            Recipe name
+            <input id="recipeName" type="text" placeholder="e.g. Creamy Garlic Pasta" required>
+          </label>
+          <label>
+            Category
+            <select id="recipeCategory" required>
+              <option value="">Select category</option>
+              <option>Breakfast</option>
+              <option>Main Course</option>
+              <option>Dessert</option>
+              <option>Snack</option>
+            </select>
+          </label>
+          <label>
+            Cooking time
+            <input id="recipeTime" type="text" placeholder="e.g. 25 min" required>
+          </label>
+          <label>
+            Image URL
+            <input id="recipeImage" type="url" placeholder="Optional image URL">
+          </label>
+          <label class="full">
+            Ingredients
+            <textarea id="recipeIngredients" placeholder="Separate ingredients with commas" required></textarea>
+          </label>
+          <label class="full">
+            Instructions
+            <textarea id="recipeInstructions" placeholder="Write the cooking steps..." required></textarea>
+          </label>
+        </div>
+        <button class="primary-btn" type="submit">Add to my cookbook <span>→</span></button>
+      </form>
+    </section>
+  </main>
+
+  <div id="toast" class="toast">
+    <span id="toastIcon">✓</span>
+    <span id="toastMessage">Saved</span>
+  </div>
+
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <button id="closeModal" class="close-btn">×</button>
+      <div class="modal-visual">
+        <img id="modalImage" src="" alt="Recipe">
+        <div class="modal-gradient"></div>
+        <div class="modal-title">
+          <span id="modalCategory" class="badge"></span>
+          <h2 id="modalTitle"></h2>
+          <p id="modalTime"></p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-columns">
+          <div>
+            <h3>Ingredients</h3>
+            <ul id="modalIngredients" class="ingredient-list"></ul>
+          </div>
+          <div>
+            <h3>Method</h3>
+            <p id="modalInstructions" class="instructions"></p>
+          </div>
+        </div>
+
+        <div class="rating-panel">
+          <div>
+            <strong>How did it taste?</strong>
+            <span id="ratingText">Rate this recipe</span>
+          </div>
+          <div id="rating" class="rating">
+            <button data-star="1">★</button>
+            <button data-star="2">★</button>
+            <button data-star="3">★</button>
+            <button data-star="4">★</button>
+            <button data-star="5">★</button>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button id="favoriteBtn" class="outline-btn">♡ Save to favorites</button>
+          <button id="deleteBtn" class="danger-btn hidden">Delete recipe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">Velora<span>.</span></div>
+    <p>Practical 5 • Recipe Book • HTML + CSS + JavaScript</p>
+    <p class="footer-note">Made with curiosity and an unreasonable amount of CSS.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
