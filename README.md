@@ -1,4 +1,4 @@
-# Practical 5 - Velora Recipe Book
+Velora Recipe Book
 
 A highly interactive Recipe Book made using only:
 - HTML5
